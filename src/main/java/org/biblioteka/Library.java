@@ -14,6 +14,23 @@ class Library {
         this.in = new Scanner(System.in);
     }
 
+    public void startLibraryOperations() {
+        boolean exit = false;
 
+        while (!exit) {
+            System.out.println("#################### MENU ####################\n" +
+                    "1. Dodaj książkę do bazy\n" +
+                    "2. Wypożycz książkę\n" +
+                    "3. Zwróć książkę\n" +
+                    "4. Wyszukaj książkę\n" +
+                    "5. Dodaj czytelnika\n" +
+                    "6. Usuń czytelnika\n" +
+                    "7. Importuj bazę książek z pliku CSV\n" +
+                    "8. Eksportuj książki do bazy w pliku CSV\n" +
+                    "9. Importuj bazę czytelników z pliku CSV\n" +
+                    "10. Eksportuj czytelników do bazy w pliku CSV\n" +
+                    "11. Wyjście z programu");
+        }
+    }
 
 }
