@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 //zgodnie ze standardami nazewnictwa nazwy klas, interfejsów oraz zmiennych są w języku angielskim, zaś komunikaty i opcje menu dla lepszego odbioru są w języku polskim
 class Library {
-    private BookDatabase bookDatabase;
+    private BookDatabase bookDatabase; //zapewniona hermetyzacja
     private ReaderDatabase readerDatabase;
     private Scanner in;
 
@@ -14,7 +14,7 @@ class Library {
         this.in = new Scanner(System.in);
     }
 
-    public void startLibraryOperations() {
+    public void startLibrary() {
         boolean exit = false;
 
         while (!exit) {
@@ -31,7 +31,46 @@ class Library {
                     "9. Importuj bazę czytelników z pliku CSV\n" +
                     "10. Eksportuj czytelników do bazy w pliku CSV\n" +
                     "11. Wyjście z programu");
+
+            String choice = in.nextLine();
+            switch (choice) {
+                case "1":
+                    addBook();
+                    break;
+                case "2":
+                    borrowBook();
+                    break;
+                case "3":
+                    returnBook();
+                    break;
+                case "4":
+                    searchBook();
+                    break;
+                case "5":
+                    addReader();
+                    break;
+                case "6":
+                    removeReader();
+                    break;
+                case "7":
+                    importBooksFromCSV();
+                    break;
+                case "8":
+                    exportBooksToCSV();
+                    break;
+                case "9":
+                    importReadersFromCSV();
+                    break;
+                case "10":
+                    exportReadersToCSV();
+                    break;
+                case "11":
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Niewłaściwa opcja. Spróbuj ponownie");
+                    break;
+            }
         }
     }
-
 }
