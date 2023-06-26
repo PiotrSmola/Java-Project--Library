@@ -1,4 +1,5 @@
 package org.biblioteka;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -175,7 +176,6 @@ class Library {
         String author = scanner.nextLine();
         bookDatabase.borrowBook(title, author, readerId);
     }
-
 
 
     private void addBook() {
