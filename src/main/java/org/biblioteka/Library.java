@@ -9,12 +9,21 @@ import java.util.*;
 class Library {
     private BookDatabase bookDatabase; //zapewniona hermetyzacja
     private ReaderDatabase readerDatabase;
+    private List<BorrowInfo> borrows;
     private Scanner in;
 
     public Library(BookDatabase bookDatabase, ReaderDatabase readerDatabase) {
-        this.bookDatabase = bookDatabase;
-        this.readerDatabase = readerDatabase;
+        this.bookDatabase = new BookDatabase();
+        this.readerDatabase = new ReaderDatabase();
+        this.borrows = new ArrayList<>();
         this.in = new Scanner(System.in);
+        try {
+            this.bookDatabase.loadFromDatabase("books.txt");
+            loadBorrowsFromDatabase("borrows.txt");
+            this.loadBorrowInfo();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void startLibrary() {
@@ -151,7 +160,7 @@ class Library {
 
     public void importReadersFromCSV() {
         System.out.println("Podaj ścieżkę pliku CSV:");
-        String filePath = scanner.nextLine();
+        String filePath = in.nextLine();
         File file = new File(filePath);
         if (file.exists() && !file.isDirectory()) {
             readerDatabase.importFromCSV(filePath);
@@ -162,41 +171,41 @@ class Library {
 
     public void exportReadersToCSV() {
         System.out.println("Podaj ścieżkę pliku CSV:");
-        String filePath = scanner.nextLine();
+        String filePath = in.nextLine();
         System.out.println("Jeśli podany plik istnieje zostanie on zaktualizowany");
         readerDatabase.exportToCSV(filePath);
     }
 
     private void borrowBook() {
         System.out.println("Podaj ID czytelnika:");
-        String readerId = scanner.nextLine();
+        String readerId = in.nextLine();
         System.out.println("Podaj tytuł książki:");
-        String title = scanner.nextLine();
+        String title = in.nextLine();
         System.out.println("Podaj autora książki:");
-        String author = scanner.nextLine();
+        String author = in.nextLine();
         bookDatabase.borrowBook(title, author, readerId);
     }
 
 
     private void addBook() {
         System.out.println("Podaj ID czytelnika:");
-        String title = scanner.nextLine();
+        String title = in.nextLine();
         System.out.println("Podaj tytuł książki:");
-        String author = scanner.nextLine();
+        String author = in.nextLine();
         System.out.println("Podaj liczbę ezgemplarzy:");
-        int copies = scanner.nextInt();
-        scanner.nextLine();
+        int copies = in.nextInt();
+        in.nextLine();
         bookDatabase.addBook(new RegularBook(title, author, copies));
     }
 
 
     private void returnBook() {
         System.out.println("Podaj ID czytelnika:");
-        String readerId = scanner.nextLine();
+        String readerId = in.nextLine();
         System.out.println("Podaj tytuł książki:");
-        String title = scanner.nextLine();
+        String title = in.nextLine();
         System.out.println("Podaj autora książki:");
-        String author = scanner.nextLine();
+        String author = in.nextLine();
         // Obliczanie kary za opóźnienie
         BorrowInfo borrowInfo = bookDatabase.returnBook(title, author, readerId);
         if (borrowInfo != null) {
@@ -214,9 +223,9 @@ class Library {
 
     private void searchBook() {
         System.out.println("Podaj tytuł książki:");
-        String title = scanner.nextLine();
+        String title = in.nextLine();
         System.out.println("Podaj autora książki:");
-        String author = scanner.nextLine();
+        String author = in.nextLine();
         Book book = bookDatabase.findBookByTitleAndAuthor(title, author);
         if (book != null) {
             System.out.println("Znaleziona książka: " + book);
@@ -227,9 +236,9 @@ class Library {
 
     private void addReader() {
         System.out.println("Podaj imię i nazwisko czytelnika:");
-        String name = scanner.nextLine();
+        String name = in.nextLine();
         System.out.println("Podaj PESEL czytelnika:");
-        String pesel = scanner.nextLine();
+        String pesel = in.nextLine();
         try {
             readerDatabase.addReader(new Reader(name, pesel));
         } catch (IllegalArgumentException e) {
@@ -240,9 +249,9 @@ class Library {
 
     private void removeReader() {
         System.out.println("Podaj imię i nazwisko czytelnika:");
-        String name = scanner.nextLine();
+        String name = in.nextLine();
         System.out.println("Podaj PESEL czytelnika:");
-        String pesel = scanner.nextLine();
+        String pesel = in.nextLine();
         try {
             readerDatabase.removeReader(new Reader(name, pesel));
         } catch (NoSuchElementException e) {
@@ -298,7 +307,7 @@ class Library {
         BookDatabase bookDatabase = new BookDatabase();
         ReaderDatabase readerDatabase = new ReaderDatabase();
         Library library = new Library(bookDatabase, readerDatabase);
-        library.startLibraryOperations();
+        library.startLibrary();
     }
 }
 
