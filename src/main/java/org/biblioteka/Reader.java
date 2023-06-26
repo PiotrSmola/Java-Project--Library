@@ -8,18 +8,12 @@ class Reader {
     private String pesel;
 
     public Reader(String name, String pesel) throws IllegalArgumentException {
-        if (!isValidPesel(pesel)) {
-            throw new IllegalArgumentException("Nieprawidłowy nr PESEL");
-        }
         this.id = UUID.randomUUID();
         this.name = name;
         this.pesel = pesel;
     }
 
     public Reader(UUID id, String name, String pesel) throws IllegalArgumentException {
-        if (!isValidPesel(pesel)) {
-            throw new IllegalArgumentException("Nieprawidłowy nr PESEL");
-        }
         this.id = id;
         this.name = name;
         this.pesel = pesel;
@@ -42,16 +36,17 @@ class Reader {
         return "ID: " + id + ", Imię i nazwisko: " + name + ", PESEL: " + pesel;
     }
 
-    private boolean isValidPesel(String pesel) {
+    public static boolean validatePesel(String pesel) {
         if (pesel == null || pesel.length() != 11) {
             return false;
         }
-        for (char ch : pesel.toCharArray()) {
-            if (!Character.isDigit(ch)) {
-                return false;
-            }
+        int[] weights = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
+        int sum = 0;
+        for (int i = 0; i < 10; i++) {
+            sum += Integer.parseInt(pesel.substring(i, i + 1)) * weights[i];
         }
-        return true;
+        int checksum = (10 - (sum % 10)) % 10;
+        return checksum == Integer.parseInt(pesel.substring(10, 11));
     }
 }
 
