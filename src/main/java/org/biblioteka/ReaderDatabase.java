@@ -15,10 +15,12 @@ import com.opencsv.exceptions.CsvValidationException;
 class ReaderDatabase implements DatabaseOperations, CSVOperations {
     private List<Reader> readers;
     private List<BorrowInfo> borrows;
+    private List<Book> books;  // nowa lista do przechowywania książek
 
     public ReaderDatabase() {
         this.readers = new ArrayList<>();
         this.borrows = new ArrayList<>();
+        this.books = new ArrayList<>();  // inicjalizacja nowej listy
         try {
             loadFromDatabase("src/main/java/org/biblioteka/readers.txt");
             loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
@@ -76,9 +78,13 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
     }
 
     public void borrowBook(UUID readerId, Book book) throws IOException {
-        if (book.isAvailable()) {
-            book.setNumberOfCopies(book.getNumberOfCopies() - 1);
-            borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
+        Book existingBook = books.stream()
+                .filter(b -> b.equals(book))
+                .findFirst()
+                .orElse(null);
+        if (existingBook != null && existingBook.isAvailable()) {
+            existingBook.setNumberOfCopies(existingBook.getNumberOfCopies() - 1);
+            borrows.add(new BorrowInfo(existingBook, readerId, LocalDate.now()));
             saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Podana książka jest niedostępna");
@@ -91,19 +97,31 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
                 .findFirst()
                 .orElse(null);
         if (borrowInfo != null) {
-            book.setNumberOfCopies(book.getNumberOfCopies() + 1);
-            borrows.remove(borrowInfo);
-            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+            Book existingBook = books.stream()
+                    .filter(b -> b.equals(borrowInfo.getBook()))
+                    .findFirst()
+                    .orElse(null);
+            if (existingBook != null) {
+                existingBook.setNumberOfCopies(existingBook.getNumberOfCopies() + 1);
+                borrows.remove(borrowInfo);
+                saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+            }
         } else {
             System.out.println("Nie odnaleziono wypożyczenia");
         }
     }
 
-    private void saveBorrowsToDatabase(String filePath) throws IOException {
+
+    private void saveBorrowsToDatabase(String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (BorrowInfo borrow : borrows) {
-                writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," + borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
+                writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," +
+                        borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
+                writer.newLine();
             }
+        } catch (IOException e) {
+            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + filePath);
+            e.printStackTrace();
         }
     }
 
