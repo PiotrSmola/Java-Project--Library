@@ -77,7 +77,7 @@ class Library {
                     exit = true;
                     break;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("Niepoprawny wybór opcji. Spróbuj ponownie");
                     break;
             }
         }
@@ -87,9 +87,9 @@ class Library {
         if (book.isAvailable()) {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            saveBorrowsToDatabase("A:\\baza do projektu\\borrows.txt");
+            saveBorrowsToDatabase("borrows.txt");
         } else {
-            System.out.println("The book is not available.");
+            System.out.println("Książka nie jest dostępna.");
         }
     }
 
@@ -101,9 +101,9 @@ class Library {
         if (borrowInfo != null) {
             book.setNumberOfCopies(book.getNumberOfCopies() + 1);
             borrows.remove(borrowInfo);
-            saveBorrowsToDatabase("A:\\baza do projektu\\borrows.txt");
+            saveBorrowsToDatabase("borrows.txt");
         } else {
-            System.out.println("No such borrow found.");
+            System.out.println("Nie znaleziono takiego wypożyczenia.");
         }
     }
 
@@ -123,7 +123,7 @@ class Library {
                 UUID readerId = UUID.fromString(parts[0]);
                 String title = parts[1];
                 String author = parts[2];
-                Book book = new RegularBook(title, author, 1); // you can replace this with a proper way to find the book
+                Book book = new RegularBook(title, author, 1);
                 LocalDate borrowDate = LocalDate.parse(parts[3]);
                 borrows.add(new BorrowInfo(book, readerId, borrowDate));
             }
@@ -131,49 +131,47 @@ class Library {
     }
 
     public void importBooksFromCSV() {
-        System.out.println("Enter CSV file path:");
-        String filePath = scanner.nextLine();
+        System.out.println("Podaj ścieżkę pliku CSV:");
+        String filePath = in.nextLine();
         File file = new File(filePath);
         if (file.exists() && !file.isDirectory()) {
             bookDatabase.importFromCSV(filePath);
         } else {
-            System.out.println("File not found. Please check the path and try again.");
+            System.out.println("Nie znaleziono pliku. Sprawdź poprawność podanej ścieżki i spróbuj ponownie");
         }
     }
 
     public void exportBooksToCSV() {
-        System.out.println("Enter CSV file path:");
-        String filePath = scanner.nextLine();
-        // W tym przypadku, jeżeli plik nie istnieje, zostanie stworzony.
-        // Jeżeli jednak istnieje, dane zostaną do niego dopisane, więc warto o tym poinformować użytkownika.
-        System.out.println("If the file already exists, new data will be appended to it.");
+        System.out.println("Podaj ścieżkę pliku CSV:");
+        String filePath = in.nextLine();
+        System.out.println("Jeśli podany plik istnieje zostanie on zaktualizowany");
         bookDatabase.exportToCSV(filePath);
     }
 
     public void importReadersFromCSV() {
-        System.out.println("Enter CSV file path:");
+        System.out.println("Podaj ścieżkę pliku CSV:");
         String filePath = scanner.nextLine();
         File file = new File(filePath);
         if (file.exists() && !file.isDirectory()) {
             readerDatabase.importFromCSV(filePath);
         } else {
-            System.out.println("File not found. Please check the path and try again.");
+            System.out.println("Nie znaleziono pliku. Sprawdź poprawność podanej ścieżki i spróbuj ponownie");
         }
     }
 
     public void exportReadersToCSV() {
-        System.out.println("Enter CSV file path:");
+        System.out.println("Podaj ścieżkę pliku CSV:");
         String filePath = scanner.nextLine();
-        System.out.println("If the file already exists, new data will be appended to it.");
+        System.out.println("Jeśli podany plik istnieje zostanie on zaktualizowany");
         readerDatabase.exportToCSV(filePath);
     }
 
     private void borrowBook() {
-        System.out.println("Enter reader ID:");
+        System.out.println("Podaj ID czytelnika:");
         String readerId = scanner.nextLine();
-        System.out.println("Enter book title:");
+        System.out.println("Podaj tytuł książki:");
         String title = scanner.nextLine();
-        System.out.println("Enter book author:");
+        System.out.println("Podaj autora książki:");
         String author = scanner.nextLine();
         bookDatabase.borrowBook(title, author, readerId);
     }
@@ -181,23 +179,23 @@ class Library {
 
 
     private void addBook() {
-        System.out.println("Enter book title:");
+        System.out.println("Podaj ID czytelnika:");
         String title = scanner.nextLine();
-        System.out.println("Enter book author:");
+        System.out.println("Podaj tytuł książki:");
         String author = scanner.nextLine();
-        System.out.println("Enter number of copies:");
+        System.out.println("Podaj liczbę ezgemplarzy:");
         int copies = scanner.nextInt();
-        scanner.nextLine(); // Consume newline left-over
+        scanner.nextLine();
         bookDatabase.addBook(new RegularBook(title, author, copies));
     }
 
 
     private void returnBook() {
-        System.out.println("Enter reader ID:");
+        System.out.println("Podaj ID czytelnika:");
         String readerId = scanner.nextLine();
-        System.out.println("Enter book title:");
+        System.out.println("Podaj tytuł książki:");
         String title = scanner.nextLine();
-        System.out.println("Enter book author:");
+        System.out.println("Podaj autora książki:");
         String author = scanner.nextLine();
         // Obliczanie kary za opóźnienie
         BorrowInfo borrowInfo = bookDatabase.returnBook(title, author, readerId);
@@ -205,56 +203,56 @@ class Library {
             long daysBetween = ChronoUnit.DAYS.between(borrowInfo.getBorrowDate(), LocalDate.now());
             if (daysBetween > 14) {
                 double fine = (daysBetween - 14) * 1.0; // 1.0 PLN per day fine
-                System.out.println("Book returned successfully. Fine for late return: " + fine + " PLN");
+                System.out.println("Książka zwrócona pomyślnie. Kara za opóźnienie w zwrocie wynosi: " + fine + " PLN");
             } else {
-                System.out.println("Book returned successfully.");
+                System.out.println("Książka zwrócona pomyślnie");
             }
         } else {
-            System.out.println("Invalid book title, reader ID, or book not borrowed by this reader.");
+            System.out.println("Nieprawidłowy tytuł, ID czytelnika lub książka nie jest wypożyczona przez tego czytelnika");
         }
     }
 
     private void searchBook() {
-        System.out.println("Enter book title:");
+        System.out.println("Podaj tytuł książki:");
         String title = scanner.nextLine();
-        System.out.println("Enter book author:");
+        System.out.println("Podaj autora książki:");
         String author = scanner.nextLine();
         Book book = bookDatabase.findBookByTitleAndAuthor(title, author);
         if (book != null) {
-            System.out.println("Book found: " + book);
+            System.out.println("Znaleziona książka: " + book);
         } else {
-            System.out.println("Book not found.");
+            System.out.println("Nieznaleziono książki");
         }
     }
 
     private void addReader() {
-        System.out.println("Enter reader name:");
+        System.out.println("Podaj imię i nazwisko czytelnika:");
         String name = scanner.nextLine();
-        System.out.println("Enter reader PESEL:");
+        System.out.println("Podaj PESEL czytelnika:");
         String pesel = scanner.nextLine();
         try {
             readerDatabase.addReader(new Reader(name, pesel));
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid PESEL number. Please try again.");
+            System.out.println("Nieprawidłowy nr PESEL. Spróbuj ponownie");
         }
     }
 
 
     private void removeReader() {
-        System.out.println("Enter reader name:");
+        System.out.println("Podaj imię i nazwisko czytelnika:");
         String name = scanner.nextLine();
-        System.out.println("Enter reader PESEL:");
+        System.out.println("Podaj PESEL czytelnika:");
         String pesel = scanner.nextLine();
         try {
             readerDatabase.removeReader(new Reader(name, pesel));
         } catch (NoSuchElementException e) {
-            System.out.println("No such reader in the database.");
+            System.out.println("Nieznaleziono podanego czytelnika w bazie danych");
         }
     }
 
 
     private void loadBorrowInfo() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("A:\\baza do projektu\\borrows.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("borrows.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
