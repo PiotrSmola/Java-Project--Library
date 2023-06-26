@@ -20,8 +20,8 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         this.readers = new ArrayList<>();
         this.borrows = new ArrayList<>();
         try {
-            loadFromDatabase("readers.txt");
-            loadBorrowsFromDatabase("borrows.txt");
+            loadFromDatabase("src/main/java/org/biblioteka/readers.txt");
+            loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
     public void addReader(Reader reader) {
         readers.add(reader);
         try {
-            saveToDatabase("readers.txt");
+            saveToDatabase("src/main/java/org/biblioteka/readers.txt");
         } catch (IOException e) {
             System.out.println("Wystąpił błąd podczas aktualizacji bazy danych");
             e.printStackTrace();
@@ -43,7 +43,7 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
             throw new NoSuchElementException("Nie ma takiego czytelnika w bazie danych");
         }
         try {
-            saveToDatabase("readers.txt");
+            saveToDatabase("src/main/java/org/biblioteka/readers.txt");
         } catch (IOException e) {
             System.out.println("Wystąpił błąd podczas aktualizacji bazy danych");
             e.printStackTrace();
@@ -75,7 +75,7 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         if (book.isAvailable()) {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            saveBorrowsToDatabase("borrows.txt");
+            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Podana książka jest niedostępna");
         }
@@ -89,7 +89,7 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         if (borrowInfo != null) {
             book.setNumberOfCopies(book.getNumberOfCopies() + 1);
             borrows.remove(borrowInfo);
-            saveBorrowsToDatabase("borrows.txt");
+            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Nie odnaleziono wypożyczenia");
         }

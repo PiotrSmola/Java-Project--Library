@@ -18,8 +18,8 @@ class Library {
         this.borrows = new ArrayList<>();
         this.in = new Scanner(System.in);
         try {
-            this.bookDatabase.loadFromDatabase("books.txt");
-            loadBorrowsFromDatabase("borrows.txt");
+            this.bookDatabase.loadFromDatabase("src/main/java/org/biblioteka/books.txt");
+            loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
             this.loadBorrowInfo();
         } catch (IOException e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ class Library {
         if (book.isAvailable()) {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            saveBorrowsToDatabase("borrows.txt");
+            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Książka nie jest dostępna.");
         }
@@ -111,7 +111,7 @@ class Library {
         if (borrowInfo != null) {
             book.setNumberOfCopies(book.getNumberOfCopies() + 1);
             borrows.remove(borrowInfo);
-            saveBorrowsToDatabase("borrows.txt");
+            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Nie znaleziono takiego wypożyczenia.");
         }
@@ -261,7 +261,7 @@ class Library {
 
 
     private void loadBorrowInfo() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("borrows.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/org/biblioteka/borrows.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -281,7 +281,7 @@ class Library {
     }
 
     private void saveBorrowInfo() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("borrows.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/org/biblioteka/borrows.txt"))) {
             for (BorrowInfo borrowInfo : borrows) {
                 writer.write(borrowInfo.getBook().getTitle() + ","
                         + borrowInfo.getBook().getAuthor() + ","
@@ -295,8 +295,8 @@ class Library {
 
     private void saveState() {
         try {
-            this.bookDatabase.saveToDatabase("books.txt");
-            this.readerDatabase.saveToDatabase("readers.txt");
+            this.bookDatabase.saveToDatabase("src/main/java/org/biblioteka/books.txt");
+            this.readerDatabase.saveToDatabase("src/main/java/org/biblioteka/readers.txt");
             this.saveBorrowInfo();
         } catch (IOException e) {
             e.printStackTrace();

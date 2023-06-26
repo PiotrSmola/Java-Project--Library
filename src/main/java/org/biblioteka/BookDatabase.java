@@ -20,7 +20,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         this.books = new ArrayList<>();
         this.borrowInfoList = new ArrayList<>();
         try {
-            loadFromDatabase("books.txt");
+            loadFromDatabase("src/main/java/org/biblioteka/books.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,7 +32,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         }
         books.add(book);
         try {
-            saveToDatabase("books.txt");
+            saveToDatabase("src/main/java/org/biblioteka/books.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,7 +43,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
             throw new NoSuchElementException("Nie ma podanej książki w bazie");
         }
         try {
-            saveToDatabase("books.txt");
+            saveToDatabase("src/main/java/org/biblioteka/books.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
