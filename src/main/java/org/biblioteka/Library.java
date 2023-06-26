@@ -188,9 +188,9 @@ class Library {
 
 
     private void addBook() {
-        System.out.println("Podaj ID czytelnika:");
-        String title = in.nextLine();
         System.out.println("Podaj tytuł książki:");
+        String title = in.nextLine();
+        System.out.println("Podaj autora książki:");
         String author = in.nextLine();
         System.out.println("Podaj liczbę ezgemplarzy:");
         int copies = in.nextInt();

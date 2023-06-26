@@ -4,3 +4,4 @@ Pride and Prejudice,Jane Austen,3
 The Great Gatsby,F. Scott Fitzgerald,2
 Nineteen Eighty-Four,George Orwell,1
 Harry Potter,Rowling,2
+Zemsta,Fredro,0
