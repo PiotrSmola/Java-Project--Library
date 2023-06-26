@@ -66,10 +66,9 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
                 UUID id = UUID.fromString(parts[0]);
                 String name = parts[1];
                 String pesel = parts[2];
-                // Dodajemy sprawdzanie poprawności PESEL
                 if (!Reader.validatePesel(pesel)) {
-                    System.out.println("Invalid PESEL: " + pesel);
-                    continue; // Jeśli PESEL jest niepoprawny, pomijamy tę linię
+                    System.out.println("Niepoprawny nr PESEL: " + pesel);
+                    continue;
                 }
                 this.readers.add(new Reader(id, name, pesel));
             }
