@@ -40,6 +40,7 @@ class Reader {
         if (pesel == null || pesel.length() != 11) {
             return false;
         }
+
         //niestety z jakiegoś powodu nie działa mi walidacja peselu
 //        int[] weights = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
 //        int sum = 0;
