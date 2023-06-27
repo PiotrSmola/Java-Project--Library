@@ -13,12 +13,14 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 class BookDatabase implements DatabaseOperations, CSVOperations {
+    private ReaderDatabase readerDatabase;
     private List<Book> books;
     private List<BorrowInfo> borrowInfoList;
 
-    public BookDatabase() {
+    public BookDatabase(ReaderDatabase readerDatabase) {
         this.books = new ArrayList<>();
         this.borrowInfoList = new ArrayList<>();
+        this.readerDatabase = this.readerDatabase;
         try {
             loadFromDatabase("src/main/java/org/biblioteka/books.txt");
         } catch (IOException e) {
@@ -72,6 +74,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             BorrowInfo borrowInfo = new BorrowInfo(book, readerID, LocalDate.now());
             borrowInfoList.add(borrowInfo);
+            readerDatabase.addBorrow(borrowInfo);
             System.out.println("Pomyślnie wypożyczono książkę: " + book);
             return borrowInfo;
         } else {
@@ -89,6 +92,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         if (book != null && borrowInfo != null) {
             book.setNumberOfCopies(book.getNumberOfCopies() + 1);
             borrowInfoList.remove(borrowInfo);
+            readerDatabase.removeBorrow(borrowInfo);
             System.out.println("Książka zwrócona pomyślnie: " + book);
             return borrowInfo;
         } else {

@@ -13,18 +13,19 @@ class Library {
     private Scanner in;
 
     public Library(BookDatabase bookDatabase, ReaderDatabase readerDatabase) {
-        this.bookDatabase = new BookDatabase();
-        this.readerDatabase = new ReaderDatabase();
+        this.bookDatabase = bookDatabase;
+        this.readerDatabase = readerDatabase;
         this.borrows = new ArrayList<>();
         this.in = new Scanner(System.in);
         try {
             this.bookDatabase.loadFromDatabase("src/main/java/org/biblioteka/books.txt");
-            loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
+            ReaderDatabase.loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
             this.loadBorrowInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void startLibrary() {
         boolean exit = false;
@@ -97,7 +98,7 @@ class Library {
         if (book.isAvailable()) {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+            ReaderDatabase.saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Książka nie jest dostępna.");
         }
@@ -111,34 +112,12 @@ class Library {
         if (borrowInfo != null) {
             book.setNumberOfCopies(book.getNumberOfCopies() + 1);
             borrows.remove(borrowInfo);
-            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+            ReaderDatabase.saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Nie znaleziono takiego wypożyczenia.");
         }
     }
 
-    private void saveBorrowsToDatabase(String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (BorrowInfo borrow : borrows) {
-                writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," + borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
-            }
-        }
-    }
-
-    private void loadBorrowsFromDatabase(String filePath) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                UUID readerId = UUID.fromString(parts[0]);
-                String title = parts[1];
-                String author = parts[2];
-                Book book = new RegularBook(title, author, 1);
-                LocalDate borrowDate = LocalDate.parse(parts[3]);
-                borrows.add(new BorrowInfo(book, readerId, borrowDate));
-            }
-        }
-    }
 
     public void importBooksFromCSV() {
         System.out.println("Podaj ścieżkę pliku CSV:");
@@ -304,8 +283,8 @@ class Library {
     }
 
     public static void main(String[] args) {
-        BookDatabase bookDatabase = new BookDatabase();
         ReaderDatabase readerDatabase = new ReaderDatabase();
+        BookDatabase bookDatabase = new BookDatabase(readerDatabase);
         Library library = new Library(bookDatabase, readerDatabase);
         library.startLibrary();
     }
