@@ -19,7 +19,6 @@ class Library {
         this.in = new Scanner(System.in);
         try {
             this.bookDatabase.loadFromDatabase("src/main/java/org/biblioteka/books.txt");
-            ReaderDatabase.loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
             this.loadBorrowInfo("src/main/java/org/biblioteka/borrows.txt");
         } catch (IOException e) {
             e.printStackTrace();

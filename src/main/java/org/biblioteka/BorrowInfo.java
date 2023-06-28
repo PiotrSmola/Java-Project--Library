@@ -28,7 +28,7 @@ class BorrowInfo {
 
     public static BorrowInfo fromString(String str, BookDatabase bookDatabase) {
         String[] parts = str.split(",");
-        Book book = bookDatabase.findBookByTitleAndAuthor(parts[0], parts[1]);
+        Book book = BookDatabase.findBookByTitleAndAuthor(parts[0], parts[1]);
         UUID readerId = UUID.fromString(parts[2]);
         LocalDate borrowDate = LocalDate.parse(parts[3]);
         return new BorrowInfo(book, readerId, borrowDate);

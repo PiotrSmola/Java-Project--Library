@@ -154,12 +154,12 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
 
     private static int calculateFine(BorrowInfo borrowInfo) {
         LocalDate borrowDate = borrowInfo.getBorrowDate();
-        LocalDate dueDate = borrowDate.plusDays(14); // Assuming books are due after 14 days.
+        LocalDate dueDate = borrowDate.plusDays(14);
         LocalDate returnDate = LocalDate.now();
 
         if (returnDate.isAfter(dueDate)) {
             long daysDelayed = java.time.temporal.ChronoUnit.DAYS.between(dueDate, returnDate);
-            return (int) daysDelayed * 5; // 5 PLN for each day delayed.
+            return (int) daysDelayed * 2;
         } else {
             return 0;
         }

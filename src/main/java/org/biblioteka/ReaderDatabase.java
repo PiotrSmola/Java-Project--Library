@@ -24,7 +24,6 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         this.books = new ArrayList<>();  // inicjalizacja nowej listy
         try {
             loadFromDatabase("src/main/java/org/biblioteka/readers.txt");
-            loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,34 +73,6 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
                     continue;
                 }
                 this.readers.add(new Reader(id, name, pesel));
-            }
-        }
-    }
-
-    public static void saveBorrowsToDatabase(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (BorrowInfo borrow : borrows) {
-                writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," +
-                        borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + filePath);
-            e.printStackTrace();
-        }
-    }
-
-    public static void loadBorrowsFromDatabase(String filePath) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                String title = parts[0];
-                String author = parts[1];
-                UUID readerId = UUID.fromString(parts[2]);
-                Book book = new RegularBook(title, author, 1);
-                LocalDate borrowDate = LocalDate.parse(parts[3]);
-                borrows.add(new BorrowInfo(book, readerId, borrowDate));
             }
         }
     }
