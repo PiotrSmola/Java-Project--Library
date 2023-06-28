@@ -40,7 +40,8 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
-    public void removeBook(Book book) throws NoSuchElementException {
+    //szkic metody do usuwania książki z bazy danych
+    /*public void removeBook(Book book) throws NoSuchElementException {
         if (!books.remove(book)) {
             throw new NoSuchElementException("Nie ma podanej książki w bazie");
         }
@@ -49,7 +50,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public List<Book> getBooks() {
         return books;
