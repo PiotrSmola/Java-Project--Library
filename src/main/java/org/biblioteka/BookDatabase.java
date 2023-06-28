@@ -106,7 +106,11 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
     }
 
     private static void saveBorrowInfo() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BORROWS_FILE_PATH))) {
+        String tempFilePath = "src/main/java/org/biblioteka/borrows_temp.txt";
+        File tempFile = new File(tempFilePath);
+        File origFile = new File(BORROWS_FILE_PATH);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFilePath))) {
             for (BorrowInfo info : borrowInfoList) {
                 writer.write(info.getBook().getTitle() + ","
                         + info.getBook().getAuthor() + ","
@@ -116,7 +120,14 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if (origFile.delete()) {
+            tempFile.renameTo(origFile);
+        } else {
+            System.out.println("Nie można usunąć pliku: " + origFile.getName());
+        }
     }
+
 
     private void loadBorrowInfo() throws IOException {
         borrowInfoList.clear();
