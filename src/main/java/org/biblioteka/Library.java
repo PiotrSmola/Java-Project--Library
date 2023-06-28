@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 //zgodnie ze standardami nazewnictwa nazwy klas, interfejsów oraz zmiennych są w języku angielskim, zaś komunikaty i opcje menu dla lepszego odbioru są w języku polskim
-class Library {
+class Library extends BookDatabase {
     private BookDatabase bookDatabase; //zapewniona hermetyzacja
     private ReaderDatabase readerDatabase;
     private List<BorrowInfo> borrows;
@@ -218,7 +218,7 @@ class Library {
         try {
             this.bookDatabase.saveToDatabase("src/main/java/org/biblioteka/books.txt");
             this.readerDatabase.saveToDatabase("src/main/java/org/biblioteka/readers.txt");
-            BookDatabase.saveBorrowInfo();
+            saveBorrowInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
