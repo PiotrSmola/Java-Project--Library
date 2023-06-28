@@ -212,21 +212,13 @@ class Library {
         }
     }
 
-    private void saveBorrowInfo(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (BorrowInfo borrowInfo : borrows) {
-                writer.write(borrowInfo + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private void saveState() {
         try {
             this.bookDatabase.saveToDatabase("src/main/java/org/biblioteka/books.txt");
             this.readerDatabase.saveToDatabase("src/main/java/org/biblioteka/readers.txt");
-            this.saveBorrowInfo("src/main/java/org/biblioteka/borrows.txt");
+            BookDatabase.saveBorrowInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }

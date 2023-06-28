@@ -105,7 +105,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
-    private static void saveBorrowInfo() {
+    public static void saveBorrowInfo() {
         String tempFilePath = "src/main/java/org/biblioteka/borrows_temp.txt";
         File tempFile = new File(tempFilePath);
         File origFile = new File(BORROWS_FILE_PATH);
