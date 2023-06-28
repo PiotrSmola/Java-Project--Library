@@ -93,7 +93,6 @@ class Library {
     }
 
 
-
     public void importBooksFromCSV() {
         System.out.println("Podaj ścieżkę pliku CSV:");
         String filePath = in.nextLine();
@@ -160,7 +159,7 @@ class Library {
         String title = in.nextLine();
         System.out.println("Podaj autora książki:");
         String author = in.nextLine();
-        BookDatabase.returnBook(title,author,readerId);
+        BookDatabase.returnBook(title, author, readerId);
     }
 
     private void searchBook() {
