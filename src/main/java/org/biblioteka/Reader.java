@@ -1,5 +1,6 @@
 package org.biblioteka;
 
+import java.util.Objects;
 import java.util.UUID;
 
 class Reader {
@@ -52,5 +53,20 @@ class Reader {
 //    }
         return true;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Reader reader = (Reader) obj;
+        return Objects.equals(name, reader.name) &&
+                Objects.equals(pesel, reader.pesel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, pesel);
+    }
+
 }
 

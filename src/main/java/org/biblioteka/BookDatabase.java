@@ -13,8 +13,8 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 class BookDatabase implements DatabaseOperations, CSVOperations {
-    private List<Book> books;
-    private List<BorrowInfo> borrowInfoList;
+    private static List<Book> books;
+    private static List<BorrowInfo> borrowInfoList;
 
     public BookDatabase() {
         this.books = new ArrayList<>();
@@ -53,7 +53,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         return books;
     }
 
-    public Book findBookByTitleAndAuthor(String title, String author) {
+    public static Book findBookByTitleAndAuthor(String title, String author) {
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title) && book.getAuthor().equalsIgnoreCase(author)) {
                 return book;
@@ -80,7 +80,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
-    public BorrowInfo returnBook(String title, String author, String readerId) {
+    public static BorrowInfo returnBook(String title, String author, String readerId) {
         if (title == null || title.isBlank() || author == null || author.isBlank() || readerId == null || readerId.isBlank()) {
             throw new IllegalArgumentException("Nieprawidłowe dane. Żadne z pól nie może pozostać puste.");
         }
@@ -88,6 +88,10 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         BorrowInfo borrowInfo = findBorrowInfo(title, author, readerId);
         if (book != null && borrowInfo != null) {
             book.setNumberOfCopies(book.getNumberOfCopies() + 1);
+            int fine = calculateFine(borrowInfo);
+            if (fine > 0) {
+                System.out.println("Książka zwrócona z opóźnieniem. Kara za spóźnienie: " + fine + " PLN");
+            }
             borrowInfoList.remove(borrowInfo);
             System.out.println("Książka zwrócona pomyślnie: " + book);
             return borrowInfo;
@@ -97,14 +101,30 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
-    private BorrowInfo findBorrowInfo(String title, String author, String readerId) {
+    private static int calculateFine(BorrowInfo borrowInfo) {
+        LocalDate borrowDate = borrowInfo.getBorrowDate();
+        LocalDate dueDate = borrowDate.plusDays(14); // Assuming books are due after 14 days.
+        LocalDate returnDate = LocalDate.now();
+
+        if (returnDate.isAfter(dueDate)) {
+            long daysDelayed = java.time.temporal.ChronoUnit.DAYS.between(dueDate, returnDate);
+            return (int) daysDelayed * 5; // 5 PLN for each day delayed.
+        } else {
+            return 0;
+        }
+    }
+
+    private static BorrowInfo findBorrowInfo(String title, String author, String readerId) {
         for (BorrowInfo borrowInfo : borrowInfoList) {
-            if (borrowInfo.getBook().getTitle().equals(title) && borrowInfo.getBook().getAuthor().equals(author) && borrowInfo.getReaderId().equals(readerId)) {
+            if (borrowInfo.getBook().getTitle().equals(title) &&
+                    borrowInfo.getBook().getAuthor().equals(author) &&
+                    borrowInfo.getReaderId().equals(UUID.fromString(readerId))) {
                 return borrowInfo;
             }
         }
         return null;
     }
+
 
     @Override
     public void saveToDatabase(String filePath) throws IOException {

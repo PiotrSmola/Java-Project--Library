@@ -19,8 +19,8 @@ class Library {
         this.in = new Scanner(System.in);
         try {
             this.bookDatabase.loadFromDatabase("src/main/java/org/biblioteka/books.txt");
-            loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
-            this.loadBorrowInfo();
+            ReaderDatabase.loadBorrowsFromDatabase("src/main/java/org/biblioteka/borrows.txt");
+            this.loadBorrowInfo("src/main/java/org/biblioteka/borrows.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ class Library {
                     saveState();
                     break;
                 case "3":
-                    returnBook();
+                    returnBookUser();
                     saveState();
                     break;
                 case "4":
@@ -97,46 +97,9 @@ class Library {
         if (book.isAvailable()) {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+            ReaderDatabase.saveBorrowInfo("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Książka nie jest dostępna.");
-        }
-    }
-
-    public void returnBook(UUID readerId, Book book) throws IOException {
-        BorrowInfo borrowInfo = borrows.stream()
-                .filter(borrow -> borrow.getBook().equals(book) && borrow.getReaderId().equals(readerId))
-                .findFirst()
-                .orElse(null);
-        if (borrowInfo != null) {
-            book.setNumberOfCopies(book.getNumberOfCopies() + 1);
-            borrows.remove(borrowInfo);
-            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
-        } else {
-            System.out.println("Nie znaleziono takiego wypożyczenia.");
-        }
-    }
-
-    private void saveBorrowsToDatabase(String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (BorrowInfo borrow : borrows) {
-                writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," + borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
-            }
-        }
-    }
-
-    private void loadBorrowsFromDatabase(String filePath) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                UUID readerId = UUID.fromString(parts[0]);
-                String title = parts[1];
-                String author = parts[2];
-                Book book = new RegularBook(title, author, 1);
-                LocalDate borrowDate = LocalDate.parse(parts[3]);
-                borrows.add(new BorrowInfo(book, readerId, borrowDate));
-            }
         }
     }
 
@@ -199,26 +162,14 @@ class Library {
     }
 
 
-    private void returnBook() {
+    private void returnBookUser() {
         System.out.println("Podaj ID czytelnika:");
         String readerId = in.nextLine();
         System.out.println("Podaj tytuł książki:");
         String title = in.nextLine();
         System.out.println("Podaj autora książki:");
         String author = in.nextLine();
-        // Obliczanie kary za opóźnienie
-        BorrowInfo borrowInfo = bookDatabase.returnBook(title, author, readerId);
-        if (borrowInfo != null) {
-            long daysBetween = ChronoUnit.DAYS.between(borrowInfo.getBorrowDate(), LocalDate.now());
-            if (daysBetween > 14) {
-                double fine = (daysBetween - 14) * 1.0; // 1.0 PLN per day fine
-                System.out.println("Książka zwrócona pomyślnie. Kara za opóźnienie w zwrocie wynosi: " + fine + " PLN");
-            } else {
-                System.out.println("Książka zwrócona pomyślnie");
-            }
-        } else {
-            System.out.println("Nieprawidłowy tytuł, ID czytelnika lub książka nie jest wypożyczona przez tego czytelnika");
-        }
+        BookDatabase.returnBook(title,author,readerId);
     }
 
     private void searchBook() {
@@ -260,33 +211,21 @@ class Library {
     }
 
 
-    private void loadBorrowInfo() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/org/biblioteka/borrows.txt"))) {
+    private void loadBorrowInfo(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                String readerId = parts[0];
-                String bookTitle = parts[1];
-                String bookAuthor = parts[2];
-                UUID uid = UUID.fromString(readerId);
-                LocalDate borrowDate = LocalDate.parse(parts[3]);
-                Book book = bookDatabase.findBookByTitleAndAuthor(bookTitle, bookAuthor);
-                if (book != null) {
-                    borrows.add(new BorrowInfo(book, uid, borrowDate));
-                }
+                borrows.add(BorrowInfo.fromString(line, bookDatabase));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void saveBorrowInfo() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/org/biblioteka/borrows.txt"))) {
+    private void saveBorrowInfo(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (BorrowInfo borrowInfo : borrows) {
-                writer.write(borrowInfo.getBook().getTitle() + ","
-                        + borrowInfo.getBook().getAuthor() + ","
-                        + borrowInfo.getReaderId() + ","
-                        + borrowInfo.getBorrowDate() + "\n");
+                writer.write(borrowInfo + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -297,7 +236,7 @@ class Library {
         try {
             this.bookDatabase.saveToDatabase("src/main/java/org/biblioteka/books.txt");
             this.readerDatabase.saveToDatabase("src/main/java/org/biblioteka/readers.txt");
-            this.saveBorrowInfo();
+            this.saveBorrowInfo("src/main/java/org/biblioteka/borrows.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
