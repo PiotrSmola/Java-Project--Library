@@ -1,6 +1,9 @@
 package org.biblioteka;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,9 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
     private List<Reader> readers;
     private static List<BorrowInfo> borrows;
     private List<Book> books;  // nowa lista do przechowywania książek
+
+    private static final String BORROWS_PATH = "src/main/java/org/biblioteka/borrows.txt";
+    private static final String TEMP_BORROWS_PATH = "src/main/java/org/biblioteka/borrows_temp.txt";
 
     public ReaderDatabase() {
         this.readers = new ArrayList<>();
@@ -85,7 +91,9 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         if (existingBook != null && existingBook.isAvailable()) {
             existingBook.setNumberOfCopies(existingBook.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(existingBook, readerId, LocalDate.now()));
-            saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+            saveBorrowsToTempDatabase();
+            saveBorrowsToDatabase();
+
         } else {
             System.out.println("Podana książka jest niedostępna");
         }
@@ -104,7 +112,8 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
             if (existingBook != null) {
                 existingBook.setNumberOfCopies(existingBook.getNumberOfCopies() + 1);
                 borrows.remove(borrowInfo);
-                saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
+                saveBorrowsToTempDatabase();
+                saveBorrowsToDatabase();
             }
         } else {
             System.out.println("Nie odnaleziono wypożyczenia");
@@ -112,15 +121,23 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
     }
 
 
-    public static void saveBorrowsToDatabase(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+    public static void saveBorrowsToDatabase() {
+        try {
+            Files.move(Path.of(TEMP_BORROWS_PATH), Path.of(BORROWS_PATH), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + BORROWS_PATH);
+            e.printStackTrace();
+        }
+    }
+    public static void saveBorrowsToTempDatabase() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TEMP_BORROWS_PATH))) {
             for (BorrowInfo borrow : borrows) {
                 writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," +
                         borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + filePath);
+            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + TEMP_BORROWS_PATH);
             e.printStackTrace();
         }
     }
