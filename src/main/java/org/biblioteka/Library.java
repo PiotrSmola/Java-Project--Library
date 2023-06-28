@@ -97,7 +97,7 @@ class Library {
         if (book.isAvailable()) {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            ReaderDatabase.saveBorrowInfo("src/main/java/org/biblioteka/borrows.txt");
+            ReaderDatabase.saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
         } else {
             System.out.println("Książka nie jest dostępna.");
         }
