@@ -29,7 +29,7 @@ class Library {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("#################### MENU ####################\n" +
+            System.out.println("\n#################### MENU ####################\n" +
                     "Wybierz co chcesz zrobić podając numer funkcji\n\n" +
                     "1. Dodaj książkę do bazy\n" +
                     "2. Wypożycz książkę\n" +
