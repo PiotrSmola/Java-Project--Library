@@ -93,15 +93,7 @@ class Library {
         }
     }
 
-    public void borrowBook(UUID readerId, Book book) throws IOException {
-        if (book.isAvailable()) {
-            book.setNumberOfCopies(book.getNumberOfCopies() - 1);
-            borrows.add(new BorrowInfo(book, readerId, LocalDate.now()));
-            ReaderDatabase.saveBorrowsToDatabase("src/main/java/org/biblioteka/borrows.txt");
-        } else {
-            System.out.println("Książka nie jest dostępna.");
-        }
-    }
+
 
     public void importBooksFromCSV() {
         System.out.println("Podaj ścieżkę pliku CSV:");

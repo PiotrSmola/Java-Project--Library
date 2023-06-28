@@ -15,12 +15,14 @@ import java.util.UUID;
 class BookDatabase implements DatabaseOperations, CSVOperations {
     private static List<Book> books;
     private static List<BorrowInfo> borrowInfoList;
+    private static final String BORROWS_FILE_PATH = "src/main/java/org/biblioteka/borrows.txt";
 
     public BookDatabase() {
         this.books = new ArrayList<>();
         this.borrowInfoList = new ArrayList<>();
         try {
             loadFromDatabase("src/main/java/org/biblioteka/books.txt");
+            loadBorrowInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,6 +74,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
             book.setNumberOfCopies(book.getNumberOfCopies() - 1);
             BorrowInfo borrowInfo = new BorrowInfo(book, readerID, LocalDate.now());
             borrowInfoList.add(borrowInfo);
+            saveBorrowInfo();
             System.out.println("Pomyślnie wypożyczono książkę: " + book);
             return borrowInfo;
         } else {
@@ -93,11 +96,48 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
                 System.out.println("Książka zwrócona z opóźnieniem. Kara za spóźnienie: " + fine + " PLN");
             }
             borrowInfoList.remove(borrowInfo);
+            saveBorrowInfo();
             System.out.println("Książka zwrócona pomyślnie: " + book);
             return borrowInfo;
         } else {
             System.out.println("Nieprawidłowy tytuł, ID czytelnika bądź książka nie jest wypożyczona przez tego czytelnika");
             return null;
+        }
+    }
+
+    private static void saveBorrowInfo() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BORROWS_FILE_PATH))) {
+            for (BorrowInfo info : borrowInfoList) {
+                writer.write(info.getBook().getTitle() + ","
+                        + info.getBook().getAuthor() + ","
+                        + info.getReaderId() + ","
+                        + info.getBorrowDate() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadBorrowInfo() throws IOException {
+        borrowInfoList.clear();
+        File file = new File(BORROWS_FILE_PATH);
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(",");
+                    String title = parts[0];
+                    String author = parts[1];
+                    UUID readerId = UUID.fromString(parts[2]);
+                    LocalDate borrowDate = LocalDate.parse(parts[3]);
+                    Book book = findBookByTitleAndAuthor(title, author);
+                    if (book != null) {
+                        borrowInfoList.add(new BorrowInfo(book, readerId, borrowDate));
+                    }
+                }
+            }
+        } else {
+            System.out.println("Plik " + BORROWS_FILE_PATH + " nie istnieje. Dane nie zostały pobrane");
         }
     }
 

@@ -1,9 +1,6 @@
 package org.biblioteka;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +17,6 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
     private static List<BorrowInfo> borrows;
     private List<Book> books;  // nowa lista do przechowywania książek
 
-    private static final String BORROWS_PATH = "src/main/java/org/biblioteka/borrows.txt";
-    private static final String TEMP_BORROWS_PATH = "src/main/java/org/biblioteka/borrows_temp.txt";
 
     public ReaderDatabase() {
         this.readers = new ArrayList<>();
@@ -83,61 +78,15 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
-    public void borrowBook(UUID readerId, Book book) throws IOException {
-        Book existingBook = books.stream()
-                .filter(b -> b.equals(book))
-                .findFirst()
-                .orElse(null);
-        if (existingBook != null && existingBook.isAvailable()) {
-            existingBook.setNumberOfCopies(existingBook.getNumberOfCopies() - 1);
-            borrows.add(new BorrowInfo(existingBook, readerId, LocalDate.now()));
-            saveBorrowsToTempDatabase();
-            saveBorrowsToDatabase();
-
-        } else {
-            System.out.println("Podana książka jest niedostępna");
-        }
-    }
-
-    public void returnBook(UUID readerId, Book book) throws IOException {
-        BorrowInfo borrowInfo = borrows.stream()
-                .filter(borrow -> borrow.getBook().equals(book) && borrow.getReaderId().equals(readerId))
-                .findFirst()
-                .orElse(null);
-        if (borrowInfo != null) {
-            Book existingBook = books.stream()
-                    .filter(b -> b.equals(borrowInfo.getBook()))
-                    .findFirst()
-                    .orElse(null);
-            if (existingBook != null) {
-                existingBook.setNumberOfCopies(existingBook.getNumberOfCopies() + 1);
-                borrows.remove(borrowInfo);
-                saveBorrowsToTempDatabase();
-                saveBorrowsToDatabase();
-            }
-        } else {
-            System.out.println("Nie odnaleziono wypożyczenia");
-        }
-    }
-
-
-    public static void saveBorrowsToDatabase() {
-        try {
-            Files.move(Path.of(TEMP_BORROWS_PATH), Path.of(BORROWS_PATH), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + BORROWS_PATH);
-            e.printStackTrace();
-        }
-    }
-    public static void saveBorrowsToTempDatabase() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(TEMP_BORROWS_PATH))) {
+    public static void saveBorrowsToDatabase(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (BorrowInfo borrow : borrows) {
                 writer.write(borrow.getReaderId() + "," + borrow.getBook().getTitle() + "," +
                         borrow.getBook().getAuthor() + "," + borrow.getBorrowDate() + "\n");
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + TEMP_BORROWS_PATH);
+            System.out.println("Wystąpił błąd podczas zapisywania do pliku: " + filePath);
             e.printStackTrace();
         }
     }
