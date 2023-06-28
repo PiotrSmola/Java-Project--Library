@@ -11,17 +11,16 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
-// Klasa reprezentująca bazę danych czytelników
 class ReaderDatabase implements DatabaseOperations, CSVOperations {
     private List<Reader> readers;
     private static List<BorrowInfo> borrows;
-    private List<Book> books;  // nowa lista do przechowywania książek
+    private List<Book> books;
 
 
     public ReaderDatabase() {
         this.readers = new ArrayList<>();
         this.borrows = new ArrayList<>();
-        this.books = new ArrayList<>();  // inicjalizacja nowej listy
+        this.books = new ArrayList<>();
         try {
             loadFromDatabase("src/main/java/org/biblioteka/readers.txt");
         } catch (IOException e) {
