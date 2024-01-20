@@ -1,5 +1,6 @@
 package org.biblioteka;
 
+import javax.swing.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -7,12 +8,14 @@ import java.util.*;
 
 //zgodnie ze standardami nazewnictwa nazwy klas, interfejsów oraz zmiennych są w języku angielskim, zaś komunikaty i opcje menu dla lepszego odbioru są w języku polskim
 class Library extends BookDatabase {
+    private LoginManager loginManager;
     private BookDatabase bookDatabase; //zapewniona hermetyzacja
     private ReaderDatabase readerDatabase;
     private List<BorrowInfo> borrows;
     private Scanner in;
 
     public Library(BookDatabase bookDatabase, ReaderDatabase readerDatabase) {
+        this.loginManager = new LoginManager();
         this.bookDatabase = new BookDatabase();
         this.readerDatabase = new ReaderDatabase();
         this.borrows = new ArrayList<>();
@@ -25,7 +28,30 @@ class Library extends BookDatabase {
         }
     }
 
+    private boolean login() {
+        System.out.println("Login to the system:");
+        System.out.print("Username: ");
+        String username = in.nextLine();
+        System.out.print("Password: ");
+        String password = in.nextLine();
+
+        return loginManager.validateLogin(username, password);
+    }
+
+    public void startLoginProcess() {
+        // This method starts the login process by showing the Login window
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Login(); // Create and display the login form
+            }
+        });
+    }
+
     public void startLibrary() {
+        if (!login()) {
+            System.out.println("Invalid login. Exiting program.");
+            return;
+        }
         boolean exit = false;
 
         while (!exit) {
@@ -228,7 +254,7 @@ class Library extends BookDatabase {
         BookDatabase bookDatabase = new BookDatabase();
         ReaderDatabase readerDatabase = new ReaderDatabase();
         Library library = new Library(bookDatabase, readerDatabase);
-        library.startLibrary();
+        library.startLoginProcess();
     }
 }
 
