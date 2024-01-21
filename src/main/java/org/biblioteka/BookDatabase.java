@@ -65,24 +65,27 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         return null;
     }
 
-    public BorrowInfo borrowBook(String title, String author, String readerId) {
-        if (title == null || title.isBlank() || author == null || author.isBlank() || readerId == null || readerId.isBlank()) {
-            throw new IllegalArgumentException("Nieprawidłowe dane. Żadne z pól nie może pozostać puste");
-        }
+    public boolean borrowBook(String title, String author, String readerId) {
         Book book = findBookByTitleAndAuthor(title, author);
         UUID readerID = UUID.fromString(readerId);
         if (book != null && book.isAvailable()) {
-            book.setNumberOfCopies(book.getNumberOfCopies() - 1);
+            book.setNumberOfCopies(book.getNumberOfCopies() - 1); // Decrement the number of copies
             BorrowInfo borrowInfo = new BorrowInfo(book, readerID, LocalDate.now());
             borrowInfoList.add(borrowInfo);
-            saveBorrowInfo();
-            System.out.println("Pomyślnie wypożyczono książkę: " + book);
-            return borrowInfo;
+            saveBorrowInfo(); // Save the borrow info
+            try {
+                saveToDatabase("src/main/java/org/biblioteka/books.txt"); // Save the updated books list to the file
+                return true; // Borrowing was successful
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false; // Borrowing was unsuccessful due to an IO error
+            }
         } else {
-            System.out.println("Książka nie jest dostępna do wypożyczenia");
-            return null;
+            return false; // Borrowing was unsuccessful because the book is not available
         }
     }
+
+
 
     public static BorrowInfo returnBook(String title, String author, String readerId) {
         if (title == null || title.isBlank() || author == null || author.isBlank() || readerId == null || readerId.isBlank()) {

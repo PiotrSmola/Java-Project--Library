@@ -4,27 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Login.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/LoginManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/employees.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Library.java" afterDir="false" />
+    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/books.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/books.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/readers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/readers.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/borrows.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/borrows.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +48,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/piotr/Downloads/PO lab semestr 3/Java GUI/CRUD/GUIAppSroda/GUIAppSroda"
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "358",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/piotr/Downloads/ZadaniaPO-main (1)/ZadaniaPO-main/PO06.11/PO06.11"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -75,6 +62,27 @@
       <option name="presentableId" value="Default" />
       <updated>1705741127486</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions">
+      <option name="closed" value="true" />
+      <created>1705773947220</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1705773947220</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions">
+      <option name="closed" value="true" />
+      <created>1705773956376</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1705773956376</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions" />
   </component>
 </project>
