@@ -266,7 +266,7 @@
                 <constraints/>
                 <properties>
                   <autoResizeMode value="4"/>
-                  <background color="-2555922"/>
+                  <background color="-1184001"/>
                   <fillsViewportHeight value="true"/>
                   <font name="JetBrains Mono" size="18"/>
                   <foreground color="-16777216"/>

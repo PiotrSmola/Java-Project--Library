@@ -3,6 +3,8 @@ package org.biblioteka;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -36,6 +38,8 @@ public class Dashboard extends JFrame{
         this.setContentPane(dashboardPanel);
         this.pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JTableHeader header = bookTable.getTableHeader();
+        header.setFont(new Font("Segoe UI", Font.BOLD, 18));
         setVisible(true);
         createTable();
         initButtons();
@@ -97,6 +101,18 @@ public class Dashboard extends JFrame{
             headerVector.add("Dostępne egzemplarze");
             DefaultTableModel model = new DefaultTableModel(dataVector, headerVector);
             bookTable.setModel(model);
+            bookTable.getSelectionModel().addListSelectionListener(event -> {
+                // Get the index of the selected row
+                int selectedRow = bookTable.getSelectedRow();
+                if (selectedRow >= 0) {
+                    // Assuming the title is in the first column and author in the second
+                    String title = bookTable.getValueAt(selectedRow, 0).toString();
+                    String author = bookTable.getValueAt(selectedRow, 1).toString();
+                    // Update the text fields
+                    tytulField.setText(title);
+                    autorField.setText(author);
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,7 +123,4 @@ public class Dashboard extends JFrame{
         void execute(String filePath);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Dashboard().setVisible(true));
-    }
 }

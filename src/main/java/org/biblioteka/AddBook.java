@@ -12,10 +12,10 @@ public class AddBook extends JFrame{
     private JLabel addBookImage;
 
     public AddBook() {
-        super("Logowanie pracownika");
+        super("Dodawanie książki");
         this.setContentPane(addBookPanel);
         this.pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 }

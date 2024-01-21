@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions">
+    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="Initial completion of the Dashboard">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/books.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/books.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/borrows.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/borrows.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,11 +77,20 @@
       <option name="project" value="LOCAL" />
       <updated>1705773956376</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Initial completion of the Dashboard">
+      <option name="closed" value="true" />
+      <created>1705831988273</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705831988273</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions" />
+    <MESSAGE value="Initial completion of the Dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial completion of the Dashboard" />
   </component>
 </project>

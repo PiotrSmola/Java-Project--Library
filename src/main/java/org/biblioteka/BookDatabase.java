@@ -213,14 +213,18 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
 
     @Override
     public void importFromCSV(String filePath) {
+        System.out.println(filePath);
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             String[] line;
+            // Clear the current list of books
+            this.books.clear();
             while ((line = reader.readNext()) != null) {
                 String title = line[0];
                 String author = line[1];
                 int copies = Integer.parseInt(line[2]);
                 this.books.add(new RegularBook(title, author, copies));
             }
+            saveToDatabase("src/main/java/org/biblioteka/books.txt");
         } catch (IOException e) {
             System.out.println("Wystąpił problem w odczycie pliku");
             e.printStackTrace();
