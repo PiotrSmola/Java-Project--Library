@@ -156,7 +156,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
-    private static int calculateFine(BorrowInfo borrowInfo) {
+    public static int calculateFine(BorrowInfo borrowInfo) {
         LocalDate borrowDate = borrowInfo.getBorrowDate();
         LocalDate dueDate = borrowDate.plusDays(14);
         LocalDate returnDate = LocalDate.now();

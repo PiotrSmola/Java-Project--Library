@@ -7,3 +7,5 @@ Harry Potter,Rowling,0
 Zemsta,Fredro,0
 Pan Lodowego Ogrodu,Nieznany,0
 Akademia Pana Kleksa,Jan Brzechwa,7
+Muminki,Polak,3
+Gumisie,Niepolak,1

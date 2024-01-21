@@ -46,7 +46,7 @@ public class Dashboard extends JFrame{
     }
         private void initButtons() {
             dodajKsiazkeButton.addActionListener(e -> new AddBook().setVisible(true));
-            zwrocButton.addActionListener(e -> new ReturnBook().setVisible(true));
+            zwrocButton.addActionListener(e -> new ReturnBook(bookDatabase).setVisible(true));
             wyszukajButton.addActionListener(e -> new SearchBook().setVisible(true));
             dodajUsunButton.addActionListener(e -> new AddDeleteReader().setVisible(true));
             bookImportButton.addActionListener(e -> performFileOperation(true, bookDatabase::importFromCSV));

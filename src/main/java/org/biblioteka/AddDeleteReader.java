@@ -1,6 +1,8 @@
 package org.biblioteka;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AddDeleteReader extends JFrame{
     private JPanel addDeleteReaderPanel;
@@ -13,10 +15,28 @@ public class AddDeleteReader extends JFrame{
     private JLabel addDeleteImage;
 
     public AddDeleteReader() {
-        super("Logowanie pracownika");
+        super("Dodawanie i usuwanie czytelnika");
         this.setContentPane(addDeleteReaderPanel);
         this.pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
+        dodajCzytelnikaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        usunCZytelnikaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        anulujButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 }
