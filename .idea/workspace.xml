@@ -4,19 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="Fixed import from csv issue">
+    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="Created and fully functioning panel for adding a book to the database and a panel for returning a book">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/books.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/books.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Library.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,13 +91,22 @@
       <option name="project" value="LOCAL" />
       <updated>1705842261108</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Created and fully functioning panel for adding a book to the database and a panel for returning a book">
+      <option name="closed" value="true" />
+      <created>1705867242813</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1705867242814</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added employee logins to the program. Created a GUI for the login panel. Created but unfinished layout of GUI panels for other program functions" />
     <MESSAGE value="Initial completion of the Dashboard" />
     <MESSAGE value="Fixed import from csv issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed import from csv issue" />
+    <MESSAGE value="Created and fully functioning panel for adding a book to the database and a panel for returning a book" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created and fully functioning panel for adding a book to the database and a panel for returning a book" />
   </component>
 </project>

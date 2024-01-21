@@ -87,7 +87,7 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
 
 
 
-    public static BorrowInfo returnBook(String title, String author, String readerId) {
+    public BorrowInfo returnBook(String title, String author, String readerId) {
         if (title == null || title.isBlank() || author == null || author.isBlank() || readerId == null || readerId.isBlank()) {
             throw new IllegalArgumentException("Nieprawidłowe dane. Żadne z pól nie może pozostać puste.");
         }
@@ -101,6 +101,11 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
             }
             borrowInfoList.remove(borrowInfo);
             saveBorrowInfo();
+            try {
+                saveToDatabase("src/main/java/org/biblioteka/books.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             System.out.println("Książka zwrócona pomyślnie: " + book);
             return borrowInfo;
         } else {
