@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends JFrame{
+public class Login extends JFrame {
     private JTextField loginField;
     private JPasswordField loginPasswordField;
     private JButton logInButton;
@@ -12,7 +12,7 @@ public class Login extends JFrame{
     private JPanel loginPanel;
     private JLabel welcomePanel;
 
-    private LoginManager loginManager; // Assume this is the class handling the login process
+    private LoginManager loginManager;
 
     public Login() {
         super("Logowanie pracownika");
@@ -21,7 +21,7 @@ public class Login extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        loginManager = new LoginManager(); // Initialize your LoginManager here
+        loginManager = new LoginManager();
 
         logInButton.addActionListener(new ActionListener() {
             @Override
@@ -29,14 +29,12 @@ public class Login extends JFrame{
                 String username = loginField.getText();
                 String password = new String(loginPasswordField.getPassword());
 
-                // This method call is hypothetical and should match your actual LoginManager method
                 boolean isValid = loginManager.validateLogin(username, password);
 
                 if (isValid) {
-                    // Assuming Dashboard is another JFrame that needs to be displayed upon successful login
                     Dashboard dashboard = new Dashboard();
                     dashboard.setVisible(true);
-                    dispose(); // Close the login window
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(Login.this,
                             "Nieprawidłowy login lub hasło!",

@@ -4,19 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="Fixed an error related to the number of copies available when returning a book">
+    <list default="true" id="f25f6044-bf87-495c-affc-052f931b11d9" name="Changes" comment="A fully working version 2.0 (with a Graphical User Interface) of a program supporting library employees in the reader service process">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddBook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/AddDeleteReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/BookDatabase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Dashboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Library.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/LoginManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/LoginManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReaderDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReaderDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/ReturnBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/SearchBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/readers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/readers.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/biblioteka/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/biblioteka/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705868695090</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="A fully working version 2.0 (with a Graphical User Interface) of a program supporting library employees in the reader service process">
+      <option name="closed" value="true" />
+      <created>1706000201669</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1706000201669</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -125,6 +126,7 @@
     <MESSAGE value="Fixed import from csv issue" />
     <MESSAGE value="Created and fully functioning panel for adding a book to the database and a panel for returning a book" />
     <MESSAGE value="Fixed an error related to the number of copies available when returning a book" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed an error related to the number of copies available when returning a book" />
+    <MESSAGE value="A fully working version 2.0 (with a Graphical User Interface) of a program supporting library employees in the reader service process" />
+    <option name="LAST_COMMIT_MESSAGE" value="A fully working version 2.0 (with a Graphical User Interface) of a program supporting library employees in the reader service process" />
   </component>
 </project>

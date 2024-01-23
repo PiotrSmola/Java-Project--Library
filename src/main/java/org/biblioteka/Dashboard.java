@@ -11,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 
-public class Dashboard extends JFrame{
+public class Dashboard extends JFrame {
     private JPanel dashboardPanel;
     private JTextField idField;
     private JTextField autorField;
@@ -44,18 +44,19 @@ public class Dashboard extends JFrame{
         createTable();
         initButtons();
     }
-        private void initButtons() {
-            dodajKsiazkeButton.addActionListener(e -> new AddBook().setVisible(true));
-            zwrocButton.addActionListener(e -> new ReturnBook(bookDatabase).setVisible(true));
-            wyszukajButton.addActionListener(e -> new SearchBook().setVisible(true));
-            dodajUsunButton.addActionListener(e -> new AddDeleteReader().setVisible(true));
-            bookImportButton.addActionListener(e -> performFileOperation(true, bookDatabase::importFromCSV));
-            exportBookButton.addActionListener(e -> performFileOperation(false, bookDatabase::exportToCSV));
-            importReadersButton.addActionListener(e -> performFileOperation(true, readerDatabase::importFromCSV));
-            exportReadersButton.addActionListener(e -> performFileOperation(false, readerDatabase::exportToCSV));
-            wypozyczButton.addActionListener(this::borrowBook);
-            exitButton.addActionListener(e -> dispose());
-        }
+
+    private void initButtons() {
+        dodajKsiazkeButton.addActionListener(e -> new AddBook().setVisible(true));
+        zwrocButton.addActionListener(e -> new ReturnBook(bookDatabase).setVisible(true));
+        wyszukajButton.addActionListener(e -> new SearchBook().setVisible(true));
+        dodajUsunButton.addActionListener(e -> new AddDeleteReader().setVisible(true));
+        bookImportButton.addActionListener(e -> performFileOperation(true, bookDatabase::importFromCSV));
+        exportBookButton.addActionListener(e -> performFileOperation(false, bookDatabase::exportToCSV));
+        importReadersButton.addActionListener(e -> performFileOperation(true, readerDatabase::importFromCSV));
+        exportReadersButton.addActionListener(e -> performFileOperation(false, readerDatabase::exportToCSV));
+        wypozyczButton.addActionListener(this::borrowBook);
+        exitButton.addActionListener(e -> dispose());
+    }
 
     private void borrowBook(ActionEvent e) {
         String id = idField.getText();

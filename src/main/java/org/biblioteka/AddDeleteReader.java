@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
-public class AddDeleteReader extends JFrame{
+public class AddDeleteReader extends JFrame {
     private JPanel addDeleteReaderPanel;
     private JTextField idAddDelField;
     private JTextField imieNazwiskoField;

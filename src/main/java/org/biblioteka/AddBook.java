@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddBook extends JFrame{
+public class AddBook extends JFrame {
     private JPanel addBookPanel;
     private JTextField tytulDodawanyField;
     private JTextField autorDodawanyField;
