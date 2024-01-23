@@ -62,12 +62,24 @@ public class Dashboard extends JFrame{
         String author = autorField.getText();
         String title = tytulField.getText();
 
+        // Sprawdzenie, czy żadne z pól nie jest puste
+        if (id.trim().isEmpty() || author.trim().isEmpty() || title.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Wszystkie pola (ID, Autor, Tytuł) muszą być wypełnione.",
+                    "Błąd", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Kontynuacja procesu wypożyczenia książki, jeśli wszystkie pola są wypełnione
         boolean success = bookDatabase.borrowBook(title, author, id);
 
         if (success) {
-            JOptionPane.showMessageDialog(this, "Book borrowed successfully!");
+            JOptionPane.showMessageDialog(this,
+                    "Książka została wypożyczona pomyślnie!");
         } else {
-            JOptionPane.showMessageDialog(this, "Failed to borrow book.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Nie udało się wypożyczyć książki. Sprawdź wprowadzone dane i spróbuj ponownie.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -83,7 +95,6 @@ public class Dashboard extends JFrame{
     }
 
     private void createTable() {
-        // Assuming that books.txt is a comma-separated file
         try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/org/biblioteka/books.txt"))) {
             String line;
             Vector<Vector<String>> dataVector = new Vector<>();
@@ -102,13 +113,10 @@ public class Dashboard extends JFrame{
             DefaultTableModel model = new DefaultTableModel(dataVector, headerVector);
             bookTable.setModel(model);
             bookTable.getSelectionModel().addListSelectionListener(event -> {
-                // Get the index of the selected row
                 int selectedRow = bookTable.getSelectedRow();
                 if (selectedRow >= 0) {
-                    // Assuming the title is in the first column and author in the second
                     String title = bookTable.getValueAt(selectedRow, 0).toString();
                     String author = bookTable.getValueAt(selectedRow, 1).toString();
-                    // Update the text fields
                     tytulField.setText(title);
                     autorField.setText(author);
                 }

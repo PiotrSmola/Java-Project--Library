@@ -67,21 +67,27 @@ class BookDatabase implements DatabaseOperations, CSVOperations {
 
     public boolean borrowBook(String title, String author, String readerId) {
         Book book = findBookByTitleAndAuthor(title, author);
-        UUID readerID = UUID.fromString(readerId);
+        UUID readerID;
+        try {
+            readerID = UUID.fromString(readerId);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Błąd: Niepoprawny format UUID.");
+            return false; // Niepoprawny format UUID, zwróć niepowodzenie operacji
+        }
         if (book != null && book.isAvailable()) {
-            book.setNumberOfCopies(book.getNumberOfCopies() - 1); // Decrement the number of copies
+            book.setNumberOfCopies(book.getNumberOfCopies() - 1); // Zmniejszanie liczby kopii w przypadku wypożyczenia
             BorrowInfo borrowInfo = new BorrowInfo(book, readerID, LocalDate.now());
             borrowInfoList.add(borrowInfo);
             saveBorrowInfo(); // Save the borrow info
             try {
-                saveToDatabase("src/main/java/org/biblioteka/books.txt"); // Save the updated books list to the file
+                saveToDatabase("src/main/java/org/biblioteka/books.txt"); // Aktualizacja bazy książek
                 return true; // Borrowing was successful
             } catch (IOException e) {
                 e.printStackTrace();
-                return false; // Borrowing was unsuccessful due to an IO error
+                return false;
             }
         } else {
-            return false; // Borrowing was unsuccessful because the book is not available
+            return false; // Niepomyślne wypożyczenie z uwagi na brak dostępnej książki
         }
     }
 

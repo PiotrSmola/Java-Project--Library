@@ -28,6 +28,10 @@ class ReaderDatabase implements DatabaseOperations, CSVOperations {
         }
     }
 
+    public List<Reader> getReaders() {
+        return new ArrayList<>(readers);
+    }
+
     public void addReader(Reader reader) {
         readers.add(reader);
         try {

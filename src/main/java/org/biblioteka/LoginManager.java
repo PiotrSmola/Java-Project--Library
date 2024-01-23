@@ -22,7 +22,7 @@ public class LoginManager {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    userCredentials.put(parts[0], parts[1]); // username, hashed password
+                    userCredentials.put(parts[0], parts[1]); // nazwa użytkownika, zahashowane hasło
                 }
             }
         } catch (IOException e) {

@@ -17,7 +17,7 @@ public class AddBook extends JFrame{
 
     public AddBook() {
         super("Dodawanie książki");
-        bookDatabase = new BookDatabase(); // Initialize with an existing instance
+        bookDatabase = new BookDatabase();
         this.setContentPane(addBookPanel);
         this.pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,16 +30,14 @@ public class AddBook extends JFrame{
                     String author = autorDodawanyField.getText();
                     int quantity = Integer.parseInt(iloscDodawanaField.getText());
 
-                    // Create a new book instance
+                    // Stworzenie instancji nowej książki
                     Book newBook = new RegularBook(title, author, quantity);
 
-                    // Add the book to the database
+                    // Dodanie książki do bazy
                     bookDatabase.addBook(newBook);
 
-                    // Show a success message
                     JOptionPane.showMessageDialog(AddBook.this, "Książka została dodana.", "Sukces", JOptionPane.INFORMATION_MESSAGE);
 
-                    // Clear the fields after adding
                     tytulDodawanyField.setText("");
                     autorDodawanyField.setText("");
                     iloscDodawanaField.setText("");

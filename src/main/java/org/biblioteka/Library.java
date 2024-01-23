@@ -28,21 +28,21 @@ class Library extends BookDatabase {
         }
     }
 
-    private boolean login() {
-        System.out.println("Login to the system:");
-        System.out.print("Username: ");
-        String username = in.nextLine();
-        System.out.print("Password: ");
-        String password = in.nextLine();
-
-        return loginManager.validateLogin(username, password);
-    }
+//    private boolean login() {
+//        System.out.println("Zaloguj się do systemu
+//        System.out.print("Login: ");
+//        String username = in.nextLine();
+//        System.out.print("Hasło: ");
+//        String password = in.nextLine();
+//
+//        return loginManager.validateLogin(username, password);
+//    }
 
     public void startLoginProcess() {
-        // This method starts the login process by showing the Login window
+        // Metoda rozpoczynająca proces logowania pracownika-użytkownika
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new Login(); // Create and display the login form
+                new Login(); // Stworzenie i uruchomienie okna logowania
             }
         });
     }
