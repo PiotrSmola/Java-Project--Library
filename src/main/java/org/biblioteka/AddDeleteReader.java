@@ -43,7 +43,8 @@ public class AddDeleteReader extends JFrame {
 
                 Reader newReader = new Reader(name, pesel);
                 readerDatabase.addReader(newReader);
-                JOptionPane.showMessageDialog(null, "Czytelnik został dodany pomyślnie.", "Sukces", JOptionPane.INFORMATION_MESSAGE);
+                UUID newReaderId = newReader.getId();
+                JOptionPane.showMessageDialog(null, "Czytelnik został dodany pomyślnie. \n ID: " + newReaderId, "Sukces", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
